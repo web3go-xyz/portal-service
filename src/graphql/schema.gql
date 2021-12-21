@@ -1,0 +1,11 @@
+type Query {
+  parachains: [Parachain]
+}
+
+type Parachain {
+  id: ID
+  paraId: String
+  projectName: String
+  icon: String
+  lastUpdateTime: String
+}

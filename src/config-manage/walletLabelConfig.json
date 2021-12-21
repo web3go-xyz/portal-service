@@ -1,0 +1,130 @@
+{
+   "configs": [
+      {
+         "contract": "0xb59490ab09a0f526cc7305822ac65f2ab12f9723",
+         "symbol": "LIT",
+         "perForBalance": {
+            "value": 0.2,
+            "active": true,
+            "info": "Top percentage of all holder regarding the account's balance for this specific token"
+         },
+         "amountForBalance": {
+            "value": 10,
+            "active": false,
+            "info": "amount of the account's balance for this specific token"
+         },
+         "perForActivity": {
+            "value": 0.2,
+            "active": true,
+            "info": "Top percentage of all holder regarding the account's activity. where an activity is defined by transactions that contain incoming or outgoing token transfers related to the account"
+         },
+         "amountForSHOTop": {
+            "value": 10,
+            "active": false,
+            "info": "amount of the account's balance for this specific token"
+         },
+         "perForSHOTop": {
+            "value": 0.2,
+            "info": "Top percentage of all holder regarding the account's balance for this specific token",
+            "active": true
+         },
+         "perForSHOBottom": {
+            "value": 0.2,
+            "active": true,
+            "info": "Bottom percentage of all holder regarding the account's activity. where an activity is defined by transactions that contain incoming or outgoing token transfers related to the account"
+         },
+         "startDateForHighActivity": {
+            "startDate": 1611422689,
+            "info": "The default time period is from the contract created to present"
+         },
+         "startDateForSHO": {
+            "startDate": 1611422689,
+            "info": "The default time period is from the contract created to present"
+         }
+      },
+      {
+         "contract": "0x83e6f1e41cdd28eaceb20cb649155049fac3d5aa",
+         "symbol": "POLS",
+         "perForBalance": {
+            "value": 0.3,
+            "active": true,
+            "info": "Top percentage of all holder regarding the account's balance for this specific token"
+         },
+         "amountForBalance": {
+            "value": 100,
+            "active": false,
+            "info": "amount of the account's balance for this specific token"
+         },
+         "perForActivity": {
+            "value": 0.3,
+            "active": true,
+            "info": "Top percentage of all holder regarding the account's activity. where an activity is defined by transactions that contain incoming or outgoing token transfers related to the account"
+         },
+         "amountForSHOTop": {
+            "value": 101,
+            "active": false,
+            "info": "amount of the account's balance for this specific token"
+         },
+         "perForSHOTop": {
+            "value": 0.2,
+            "info": "Top percentage of all holder regarding the account's balance for this specific token",
+            "active": true
+         },
+         "perForSHOBottom": {
+            "value": 0.2,
+            "active": true,
+            "info": "Bottom percentage of all holder regarding the account's activity. where an activity is defined by transactions that contain incoming or outgoing token transfers related to the account"
+         },
+         "startDateForHighActivity": {
+            "startDate": 1601261180,
+            "info": "The default time period is from the contract created to present"
+         },
+         "startDateForSHO": {
+            "startDate": 1601261180,
+            "info": "The default time period is from the contract created to present"
+         }
+      },
+      {
+         "contract": "0xa2120b9e674d3fc3875f415a7df52e382f141225",
+         "symbol": "ATA",
+         "perForBalance": {
+            "value": 0.2,
+            "active": true,
+            "info": "Top percentage of all holder regarding the account's balance for this specific token"
+         },
+         "amountForBalance": {
+            "value": 10,
+            "active": false,
+            "info": "amount of the account's balance for this specific token"
+         },
+         "perForActivity": {
+            "value": 0.2,
+            "active": true,
+            "info": "Top percentage of all holder regarding the account's activity. where an activity is defined by transactions that contain incoming or outgoing token transfers related to the account"
+         },
+         "amountForSHOTop": {
+            "value": 10,
+            "active": false,
+            "info": "amount of the account's balance for this specific token"
+         },
+         "perForSHOTop": {
+            "value": 0.2,
+            "info": "Top percentage of all holder regarding the account's balance for this specific token",
+            "active": true
+         },
+         "perForSHOBottom": {
+            "value": 0.2,
+            "active": true,
+            "info": "Bottom percentage of all holder regarding the account's activity. where an activity is defined by transactions that contain incoming or outgoing token transfers related to the account"
+         },
+         "startDateForHighActivity": {
+            "startDate": 1622337616,
+            "info": "The default time period is from the contract created to present"
+         },
+         "startDateForSHO": {
+            "startDate": 1622337616,
+            "info": "The default time period is from the contract created to present"
+         }
+      }
+   ]
+}
