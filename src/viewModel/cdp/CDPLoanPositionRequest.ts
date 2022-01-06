@@ -2,13 +2,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import { CDPBaseRequest } from './CDPBaseRequest';
 
 export class CDPLoanPositionRequest extends CDPBaseRequest {
-
-  @ApiProperty()
+  @ApiProperty({ default: '' })
   public accountId: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: [] })
   public filterStatus: string[];
 
-  @ApiProperty()
+  @ApiProperty({ default: false })
   public hideLoanCompleted: boolean;
 }
