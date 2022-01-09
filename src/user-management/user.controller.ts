@@ -9,11 +9,11 @@ import { CodeVerifyRequest } from 'src/viewModel/UserManagement/CodeVerifyReques
 import { EmailVerifyRequest } from 'src/viewModel/UserManagement/EmailVerifyRequest';
 import { UserInfoUpdateRequest } from 'src/viewModel/UserManagement/UserInfoUpdateRequest';
 import { UserFavorite } from 'src/common/entity/UserManagementModule/UserFavorite.entity';
-import { LocalAuthGuard } from './auth/LocalAuthGuard';
-import { JwtAuthGuard } from './auth/JwtAuthGuard';
+import { LocalAuthGuard } from 'src/common/auth/LocalAuthGuard';
+import { JwtAuthGuard } from 'src/common/auth/JwtAuthGuard';
 import { Mailer } from 'src/email-support/Mailer';
 import { UserFavoriteRemoveRequest } from 'src/viewModel/UserManagement/UserFavoriteRemoveRequest';
-import { AuthUser } from './auth/authUser';
+import { AuthUser } from 'src/common/auth/authUser';
 
 @Controller('/user')
 @ApiTags('user')

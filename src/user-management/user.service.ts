@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { RepositoryConsts } from 'src/common/orm/repositoryConsts';
 import { User } from 'src/common/entity/UserManagementModule/User.entity';
@@ -12,14 +12,16 @@ import { ChangePasswordRequest } from 'src/viewModel/UserManagement/ChangePasswo
 import { EmailVerifyRequest } from 'src/viewModel/UserManagement/EmailVerifyRequest';
 import { CodeVerifyRequest } from 'src/viewModel/UserManagement/CodeVerifyRequest';
 import { Mailer } from 'src/email-support/Mailer';
-import { AuthUser } from './auth/authUser';
+import { AuthUser } from 'src/common/auth/authUser';
 import { UserFavoriteRemoveRequest } from 'src/viewModel/UserManagement/UserFavoriteRemoveRequest';
+import { IAuthService } from 'src/common/auth/IAuthService';
+import { MyLogger } from 'src/common/log/logger.service';
 
 
 const md5 = require('js-md5');
 
 @Injectable()
-export class UserService {
+export class UserService implements IAuthService {
   async verifyCode(request: CodeVerifyRequest): Promise<boolean> {
     let findCode = await this.userVerifyCodeRepository.findOne({
       where: {
@@ -191,7 +193,7 @@ export class UserService {
     return token;
 
   }
-  async validateUser(username: string, password: string): Promise<UserInfo> {
+  async validateUserInfo(username: string, password: string): Promise<UserInfo> {
     const user = await this.userRepository.findOne({
       where: { loginName: username }
     });
@@ -205,6 +207,20 @@ export class UserService {
       };
     }
     return null;
+  }
+  async validateUser(username: string, password: string): Promise<AuthUser> {
+    const user = await this.userRepository.findOne({
+      where: { loginName: username }
+    });
+    if (user && this.verifyPassword(user.loginName, user.passwordHash, password)) {
+
+      let authUser: AuthUser = { userId: user.userId, username: user.email };
+      MyLogger.log(`validate user:${JSON.stringify(authUser)}`);
+
+      return authUser;
+    }
+    MyLogger.error('username or password invalid, please check');
+    throw new UnauthorizedException("username or password invalid, please check");
   }
 
   async getUserInfo(userId: number): Promise<UserInfo> {

@@ -6,9 +6,15 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './auth/constants';
-import { LocalStrategy } from './auth/local.strategy';
-import { JwtStrategy } from './auth/jwt.strategy';
+import { jwtConstants } from 'src/common/auth/constants';
+import { LocalStrategy } from 'src/common/auth/local.strategy';
+import { JwtStrategy } from 'src/common/auth/jwt.strategy';
+
+const authServiceProvider = {
+  provide: 'LOCAL_AUTH_SERVICE',
+  useExisting: UserService,
+
+};
 @Module({
   imports: [
     PassportModule,
@@ -22,8 +28,9 @@ import { JwtStrategy } from './auth/jwt.strategy';
     ...databaseProviders_main,
     ...repositoryProviders_main,
     UserService,
+    authServiceProvider,
     LocalStrategy,
     JwtStrategy,
   ],
 })
-export class UserModule {}
+export class UserModule { }
