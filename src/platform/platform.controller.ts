@@ -25,4 +25,9 @@ export class PlatformController {
   async queryDataBoardViewCount(@Body() request: any): Promise<DataBoardViewCountResponse[]> {
     return await this.platformService.queryDataBoardViewCount();
   }
+
+  @Post('/checkMaintenancePrivilege')
+  async checkMaintenancePrivilege(@Body() request: any): Promise<boolean> {
+    return request.code === 'Web3Go2022';
+  }
 }
