@@ -9,7 +9,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from 'src/common/auth/constants';
 import { LocalStrategy } from 'src/common/auth/local.strategy';
 import { JwtStrategy } from 'src/common/auth/jwt.strategy';
+import { Web3SignInController } from './web3.signin.controller';
+import { Web3SignInHelper } from './web3.signin/Web3SignInHelper';
 
+import { KVService } from 'src/common/kv/kv.service';
+import { KVModule } from 'src/common/kv/kv.module';
 const authServiceProvider = {
   provide: 'LOCAL_AUTH_SERVICE',
   useExisting: UserService,
@@ -22,8 +26,9 @@ const authServiceProvider = {
       secret: jwtConstants.secret,
       signOptions: { expiresIn: jwtConstants.expiresIn },
     }),
+    KVModule
   ],
-  controllers: [UserController],
+  controllers: [UserController, Web3SignInController],
   providers: [
     ...databaseProviders_main,
     ...repositoryProviders_main,
@@ -31,6 +36,8 @@ const authServiceProvider = {
     authServiceProvider,
     LocalStrategy,
     JwtStrategy,
+    Web3SignInHelper,
+    KVService
   ],
 })
 export class UserModule { }
