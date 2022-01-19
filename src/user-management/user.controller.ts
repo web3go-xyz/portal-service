@@ -14,6 +14,7 @@ import { JwtAuthGuard } from 'src/common/auth/JwtAuthGuard';
 import { Mailer } from 'src/email-support/Mailer';
 import { UserFavoriteRemoveRequest } from 'src/viewModel/UserManagement/UserFavoriteRemoveRequest';
 import { AuthUser } from 'src/common/auth/authUser';
+import { UserAddressBundle } from 'src/common/entity/UserManagementModule/UserAddressBundle.entity';
 
 @Controller('/user')
 @ApiTags('user')
@@ -142,5 +143,43 @@ export class UserController {
   }
 
 
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Post('/getAddressBundle')
+  @ApiOperation({
+    summary: 'get current user bundled address list'
+  })
+  @ApiOkResponse({ type: UserAddressBundle, isArray: true })
+  async getAddressBundle(@Request() request): Promise<UserAddressBundle[]> {
+    let validateUser: AuthUser = request.user;
+    let userId = validateUser.userId;
+    return await this.userService.getAddressBundle(userId);
+  }
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Post('/addAddressBundle')
+  @ApiOperation({
+    summary: 'add new address into bundled address list'
+  })
+  @ApiOkResponse({ type: UserAddressBundle, isArray: false })
+  async addAddressBundle(@Body() data: UserAddressBundle, @Request() request): Promise<UserAddressBundle> {
+    let validateUser: AuthUser = request.user;
+    let userId = validateUser.userId;
+    return await this.userService.addAddressBundle(userId, data);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Post('/removeAddressBundle')
+  @ApiOperation({
+    summary: 'remove address from bundled address list'
+  })
+  @ApiOkResponse({ type: Boolean })
+  async removeAddressBundle(@Body() data: UserAddressBundle, @Request() request): Promise<Boolean> {
+    let validateUser: AuthUser = request.user;
+    let userId = validateUser.userId;
+    return await this.userService.removeAddressBundle(userId, data);
+  }
 }
 

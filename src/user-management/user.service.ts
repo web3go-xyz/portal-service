@@ -16,6 +16,7 @@ import { AuthUser } from 'src/common/auth/authUser';
 import { UserFavoriteRemoveRequest } from 'src/viewModel/UserManagement/UserFavoriteRemoveRequest';
 import { IAuthService } from 'src/common/auth/IAuthService';
 import { MyLogger } from 'src/common/log/logger.service';
+import { UserAddressBundle } from 'src/common/entity/UserManagementModule/UserAddressBundle.entity';
 
 
 const md5 = require('js-md5');
@@ -204,7 +205,8 @@ export class UserService implements IAuthService {
     private userFavoriteRepository: Repository<UserFavorite>,
     @Inject(RepositoryConsts.USER_VERIFY_CODE_REPOSITORY)
     private userVerifyCodeRepository: Repository<UserVerifyCode>,
-
+    @Inject(RepositoryConsts.USER_ADDRESS_BUNDLE_REPOSITORY)
+    private userAddressBundleRepository: Repository<UserAddressBundle>,
   ) {
 
   }
@@ -293,5 +295,41 @@ export class UserService implements IAuthService {
       html: '<p> hi ' + displayName + ' , <br>your are processing to reset the password , below is the verification code:<br><h1>' + code + '</h1><br> sent by web3go</p>'
     });
     return "email sent success";
+  }
+
+
+  async removeAddressBundle(userId: number, data: UserAddressBundle): Promise<Boolean> {
+    let findExist = await this.userAddressBundleRepository.findOne({
+      where: {
+        user_id: userId,
+        address_type: data.address_type,
+        address: data.address
+      }
+    });
+    if (findExist) {
+      await this.userAddressBundleRepository.remove(findExist);
+      return true;
+    }
+    return false;
+  }
+  async addAddressBundle(userId: number, data: UserAddressBundle): Promise<UserAddressBundle> {
+    let findExist = await this.userAddressBundleRepository.findOne({
+      where: {
+        user_id: userId,
+        address_type: data.address_type,
+        address: data.address
+      }
+    });
+    if (!findExist) {
+      data.user_id = userId;
+      await this.userAddressBundleRepository.save(data);
+      return data;
+    }
+    return findExist;
+  }
+  async getAddressBundle(userId: number): Promise<UserAddressBundle[]> {
+    return await this.userAddressBundleRepository.find({
+      where: { user_id: userId }
+    })
   }
 }
