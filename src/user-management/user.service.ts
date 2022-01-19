@@ -22,6 +22,7 @@ const md5 = require('js-md5');
 
 @Injectable()
 export class UserService implements IAuthService {
+
   async verifyCode(request: CodeVerifyRequest): Promise<boolean> {
     let findCode = await this.userVerifyCodeRepository.findOne({
       where: {
@@ -136,6 +137,9 @@ export class UserService implements IAuthService {
     }
     user.displayName = request.displayName;
     user.imageBase64 = request.imageBase64;
+    user.email = request.email;
+    user.twitter = request.twitter;
+    user.github = request.github;
     await this.userRepository.save(user);
     return await this.getUserInfo(user.userId);
   }
@@ -155,10 +159,30 @@ export class UserService implements IAuthService {
       displayName: request.displayName,
       passwordHash: this.encryptPassword(request.email, request.password),
       imageBase64: '',
+      isWeb3User: 0, twitter: '', github: '',
+      last_login_time: new Date()
     }
     await this.userRepository.save(newUser);
 
     return await this.getUserInfo(newUser.userId);
+  }
+  async checkWeb3User(userName: string): Promise<AuthUser> {
+
+    let findUser = await this.userRepository.findOne({ where: { loginName: userName, isWeb3User: 1 } })
+    if (findUser == null) {
+      let newUser: User = new User();
+      newUser.allowLogin = 1;
+      newUser.isWeb3User = 1;
+      newUser.loginName = userName;
+      newUser.displayName = userName;
+      newUser.last_login_time = new Date();
+      await this.userRepository.save(newUser);
+      return { userId: newUser.userId, username: newUser.loginName };
+    } else {
+      findUser.last_login_time = new Date();
+      await this.userRepository.save(findUser);
+      return { userId: findUser.userId, username: findUser.loginName };
+    }
   }
 
   async checkEmailExist(email: string): Promise<boolean> {
@@ -203,7 +227,10 @@ export class UserService implements IAuthService {
         userId: user.userId,
         displayName: user.displayName,
         email: user.email,
-        imageBase64: user.imageBase64
+        imageBase64: user.imageBase64,
+        twitter: user.twitter,
+        github: user.github,
+        isWeb3User: user.isWeb3User
       };
     }
     return null;

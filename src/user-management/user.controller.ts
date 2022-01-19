@@ -22,7 +22,7 @@ export class UserController {
 
 
   @Post('/signup')
-  @ApiOperation({ summary: 'create new user account' })
+  @ApiOperation({ summary: '[Web2] create new user account' })
   @ApiOkResponse({ type: UserInfo })
   async signup(@Body() request: UserSignupRequest): Promise<UserInfo> {
 
@@ -37,7 +37,7 @@ export class UserController {
 
   @UseGuards(LocalAuthGuard)
   @Post('/signin')
-  @ApiOperation({ summary: 'login in , return user info and access token' })
+  @ApiOperation({ summary: '[Web2] login in , return user info and access token' })
   @ApiOkResponse()
   async signin(@Body() request: UserSigninRequest, @Request() req): Promise<any> {
     // console.log(request);
@@ -74,21 +74,21 @@ export class UserController {
     return await this.userService.updateUserInfo(request);
   }
   @Post('/verifyEmail')
-  @ApiOperation({ summary: 'verify email if valid, will return userInfo , then the service will send an email contains the code.' })
+  @ApiOperation({ summary: '[Web2] verify email if valid, will return userInfo , then the service will send an email contains the code.' })
   @ApiOkResponse({ type: UserInfo })
   async verifyEmail(@Body() request: EmailVerifyRequest): Promise<UserInfo> {
     return await this.userService.verifyEmail(request);
   }
 
   @Post('/verifyCode')
-  @ApiOperation({ summary: 'verify code if valid' })
+  @ApiOperation({ summary: '[Web2] verify code if valid' })
   @ApiOkResponse({ type: Boolean })
   async verifyCode(@Body() request: CodeVerifyRequest): Promise<boolean> {
     return await this.userService.verifyCode(request);
   }
 
   @Post('/changePassword')
-  @ApiOperation({ summary: 'change password' })
+  @ApiOperation({ summary: '[Web2] change password' })
   @ApiOkResponse({ type: Boolean })
   async changePassword(@Body() request: ChangePasswordRequest): Promise<boolean> {
     return await this.userService.changePassword(request);

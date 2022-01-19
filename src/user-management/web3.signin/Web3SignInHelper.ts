@@ -22,7 +22,7 @@ export class Web3SignInHelper {
 
     async challenge(request: Web3SignInChallengeRequest): Promise<Web3SignInChallengeResponse> {
 
-        console.log('challenge:', request);
+        console.debug('challenge:', request);
 
         let resp: Web3SignInChallengeResponse = {
             ...request,
@@ -45,13 +45,11 @@ export class Web3SignInHelper {
         await cryptoWaitReady();
         const publicKey = decodeAddress(address);
         const hexPublicKey = u8aToHex(publicKey);
-        console.log(signedMessage);
-        console.log(signature);
-        console.log(hexPublicKey);
+        console.debug(`signedMessage:${signedMessage},signature:${signature},hexPublicKey:${hexPublicKey}`);
+
         let isValid = signatureVerify(signedMessage, signature, hexPublicKey)
             .isValid;
-
-        console.log("isValidSignature:", isValid);
+        console.debug("isValidSignature:", isValid);
         return isValid;
     }
 }

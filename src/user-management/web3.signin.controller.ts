@@ -12,8 +12,8 @@ import { Web3SignInHelper } from './web3.signin/Web3SignInHelper';
 import { KVService } from 'src/common/kv/kv.service';
 const { v4: uuidv4 } = require('uuid');
 
-@Controller('/web3-signin')
-@ApiTags('web3-signin')
+@Controller('/user')
+@ApiTags('web3-sign-in')
 export class Web3SignInController {
 
   constructor(private readonly userService: UserService,
@@ -21,8 +21,8 @@ export class Web3SignInController {
     private kvService: KVService,) { }
 
 
-  @Post('/nonce')
-  @ApiOperation({ summary: 'create a nonce message for signin request' })
+  @Post('/web3_nonce')
+  @ApiOperation({ summary: '[Web3] create a nonce message for signin request' })
   @ApiOkResponse({ type: Web3SignInNonceResponse })
   async nonce(@Body() request: Web3SignInNonceRequest): Promise<Web3SignInNonceResponse> {
 
@@ -36,8 +36,8 @@ export class Web3SignInController {
     return resp;
   }
 
-  @Post('/challenge')
-  @ApiOperation({ summary: 'verify the nonce message and signature' })
+  @Post('/web3_challenge')
+  @ApiOperation({ summary: '[Web3] verify the nonce message and signature' })
   @ApiOkResponse({ type: Web3SignInChallengeResponse })
   async challenge(@Body() request: Web3SignInChallengeRequest): Promise<Web3SignInChallengeResponse> {
     try {
@@ -51,18 +51,23 @@ export class Web3SignInController {
       }
 
       //check nonce exist
-      if (this.kvService.get(nonce)) {
+      let nonceCache = await this.kvService.get(nonce);
+      if (nonceCache) {
 
         //verify signature
         let resp = await this.web3SignInHelper.challenge(request);
 
         //remove nonce
-        // this.kvService.del(nonce);
+        this.kvService.del(nonce);
 
         if (resp.verified) {
-          //TODO add user 
-          //TODO grant token  
-          resp.extra = "token";
+          //add user 
+          let userName = request.address;
+          let validateUser: AuthUser = await this.userService.checkWeb3User(userName);
+          let token = await this.userService.grantToken(validateUser);
+          if (token) {
+            resp.extra = token;
+          }
         }
         else {
           throw new BadRequestException('challenge failed');
@@ -80,8 +85,8 @@ export class Web3SignInController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Post('/sign_out')
-  @ApiOperation({ summary: 'sign out from service side' })
+  @Post('/web3_sign_out')
+  @ApiOperation({ summary: '[Web3] sign out from service side' })
   @ApiOkResponse({ type: Boolean })
   async sign_out(@Request() request): Promise<Boolean> {
     let validateUser: AuthUser = request.user;
@@ -89,9 +94,6 @@ export class Web3SignInController {
     MyLogger.verbose(`userId ${userId} sign out from service side`)
     return true;
   }
-
-
-
 
 }
 

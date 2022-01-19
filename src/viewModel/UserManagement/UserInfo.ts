@@ -12,4 +12,13 @@ export class UserInfo {
 
     @ApiProperty()
     imageBase64: string = "";
+
+    @ApiProperty()
+    isWeb3User: number = 0;
+
+    @ApiProperty()
+    twitter: string = "";
+
+    @ApiProperty()
+    github: string = "";
 }

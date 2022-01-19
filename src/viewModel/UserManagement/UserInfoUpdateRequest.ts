@@ -10,4 +10,14 @@ export class UserInfoUpdateRequest {
     @ApiProperty({ description: 'image base64 characters as user logo' })
     imageBase64: string = "";
 
+
+    @ApiProperty()
+    email: string = "";
+
+    @ApiProperty()
+    twitter: string = "";
+
+    @ApiProperty()
+    github: string = "";
+
 }
