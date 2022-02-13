@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CustomQueryDataTableRequest {
-    @ApiProperty({ description: 'the schema name which current table belong', default: 'ido-dev' })
+    @ApiProperty({ description: 'the schema name which current table belong', default: 'ido-erc20' })
     schema: string;
 
     @ApiProperty({ description: 'the schema type of token category', default: 'ERC20' })

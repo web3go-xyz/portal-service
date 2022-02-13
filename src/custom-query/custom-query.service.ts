@@ -1,5 +1,5 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { Between, FindManyOptions, In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { RepositoryConsts } from 'src/common/orm/repositoryConsts';
 import { CustomQuery } from 'src/common/entity/CustomQueryModule/customQuery.entity';
@@ -7,10 +7,10 @@ import { CustomQueryExecuteRequest } from 'src/viewModel/custom-query/CustomQuer
 import { CustomQueryDataTableRequest } from 'src/viewModel/custom-query/CustomQueryDataTableRequest';
 import { DataTable } from '../viewModel/custom-query/DataTable';
 import { DataTableColumn } from 'src/viewModel/custom-query/DataTableColumn';
-import { ChainType } from 'src/common/entity/ERC20Module/chainType.entity';
 import { ChainState } from 'src/common/entity/CDPModule/chainState.entity';
 import { PolkParaChain } from 'src/common/entity/PolkParaChainModule/polkParaChain.entity';
 import { MoonRiverChainState } from 'src/common/entity/MoonRiverModule/MoonRiverChainState.entity';
+import { WalletAddress } from 'src/common/entity/ERC20Module/walletAddress.entity';
 
 @Injectable()
 export class CustomQueryService {
@@ -19,8 +19,9 @@ export class CustomQueryService {
     @Inject(RepositoryConsts.CUSTOM_QUERY_REPOSITORY)
     private cqRepository: Repository<CustomQuery>,
 
-    @Inject(RepositoryConsts.CHAINTYPE_REPOSITORY)
-    private idoDevRepository: Repository<ChainType>,
+    @Inject(RepositoryConsts.WALLET_ADDRESS_REPOSITORY)
+    private idoErc20Repository: Repository<WalletAddress>,
+    
     @Inject(RepositoryConsts.CDP_CHAIN_STATE_REPOSITORY)
     private idoPriceRepository: Repository<ChainState>,
 
@@ -28,8 +29,11 @@ export class CustomQueryService {
     private idoMoonriverRepository: Repository<MoonRiverChainState>,
 
 
+    @Inject(RepositoryConsts.KUSAMA_PARA_CHAIN_REPOSITORY)
+    private idoKusamaCrowdloanRepository: Repository<PolkParaChain>,
+    
     @Inject(RepositoryConsts.POLKADOT_PARA_CHAIN_REPOSITORY)
-    private idoPolkadotRepository: Repository<PolkParaChain>,
+    private idoPolkadotCrowdloanRepository: Repository<PolkParaChain>,
 
 
   ) { }
@@ -117,8 +121,11 @@ export class CustomQueryService {
 
   }
   getDbRepository(schema: string): Repository<any> {
-    if (schema == 'ido-dev') {
-      return this.idoDevRepository;
+    if (schema == 'ido-erc20') {
+      return this.idoErc20Repository;
+    }
+    if (schema == 'ido-kusama-crowdloan') {
+      return this.idoKusamaCrowdloanRepository;
     }
     if (schema == 'ido-price') {
       return this.idoPriceRepository;
@@ -127,7 +134,7 @@ export class CustomQueryService {
       return this.idoMoonriverRepository;
     }
     if (schema == 'ido-polkadot') {
-      return this.idoPolkadotRepository;
+      return this.idoPolkadotCrowdloanRepository;
     }
   }
   buildQueryExpression(request: CustomQueryExecuteRequest): string {
