@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 
-import { repositoryProviders } from 'src/common/orm/repository.providers';
-import { DatabaseModule } from 'src/common/orm/database.module';
+import { databaseProviders_polkadot } from 'src/common/orm/database.providers.v2';
 import { GraphQLResolver } from './graphql-resolver';
+import { repositoryProviders_polkadot } from 'src/common/orm/repository.providers.v2';
 
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [],
   controllers: [],
-  providers: [...repositoryProviders, GraphQLResolver],
+  providers: [...databaseProviders_polkadot, ...repositoryProviders_polkadot, GraphQLResolver],
   exports: [GraphQLResolver]
 })
 export class GraphQLResolverModule { }
