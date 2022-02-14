@@ -52,18 +52,18 @@ export class AppController {
 
 
   @Post('imgUpload')
-  @ApiOperation({ summary: 'upload img for twitter share' })
+  @ApiOperation({ summary: 'upload img and return the path' })
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     type: FileUploadDto,
   })
   imgUpload(@UploadedFile() file, @Body() body) {
-    console.log(body);
-    console.log(file);
+    // console.log(body);
+    // console.log(file);
 
     let dir = join(__dirname, '/imgUpload');
-    console.log(dir);
+    // console.log(dir);
 
     if (existsSync(dir) == false) {
       mkdirSync(dir);
@@ -72,7 +72,7 @@ export class AppController {
     let path = (new Date()).getTime() + file.originalname.substr(file.originalname.indexOf('.'));
     const writeImage = createWriteStream(join(dir, `${path}`))
     writeImage.write(file.buffer);
-    console.log("path:", path);
+    console.log("imgUpload path:", path);
 
     return path;
   }
@@ -88,5 +88,5 @@ export class AppController {
     return this.paraChainService.ss58transform(request.account, request.networks);
 
   }
- 
+
 }

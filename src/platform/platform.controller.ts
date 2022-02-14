@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query, } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiOperation, ApiProperty } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 
 import { DataBoardViewCountRequest } from 'src/viewModel/platform/DataBoardViewCountRequest';
 import { DataBoardViewCountResponse } from 'src/viewModel/platform/DataBoardViewCountResponse';
@@ -8,6 +8,7 @@ import { PlatformService } from './platform.service';
 
 
 @Controller('/platform')
+@ApiTags('platform')
 export class PlatformController {
   constructor(
     private readonly platformService: PlatformService) { }
