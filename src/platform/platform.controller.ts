@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query, } from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { DataBoardViewCountQueryRequest } from 'src/viewModel/platform/DataBoardViewCountQueryRequest';
 
 import { DataBoardViewCountRequest } from 'src/viewModel/platform/DataBoardViewCountRequest';
 import { DataBoardViewCountResponse } from 'src/viewModel/platform/DataBoardViewCountResponse';
@@ -23,8 +24,8 @@ export class PlatformController {
   }
   @Post('/queryDataBoardViewCount')
   @ApiOperation({ summary: 'query view count of databoard' })
-  async queryDataBoardViewCount(@Body() request: any): Promise<DataBoardViewCountResponse[]> {
-    return await this.platformService.queryDataBoardViewCount();
+  async queryDataBoardViewCount(@Body() request: DataBoardViewCountQueryRequest): Promise<DataBoardViewCountResponse[]> {
+    return await this.platformService.queryDataBoardViewCount(request);
   }
 
   @Post('/checkMaintenancePrivilege')
