@@ -1,6 +1,7 @@
 ## Preparation
 
 Setup a MySQL database and map the "mysqlConnection" property in the template appConfig.js to database's connection endpoint. Take a note of the path to the appConfig.js you created.
+Template: https://github.com/web3go-xyz/common/blob/main/setting/appConfig.ts
 
 ## Dependencies
 
