@@ -18,10 +18,10 @@ $ yarn build
 
 ## Create docker image
 ```bash
-$ docker build -t portal-service:v1
+$ docker build -t portal-service:v1 .
 ```
 
 ## Run the image
 ```bash
-$ docker run -d -p 10000:10000 -v [Your appConfig.js path]:/app/common/setting/appConfig.js --name tryport portal-service:v1
+$ docker run -d -p 10000:10000 -v [Your appConfig.js path]:/app/common/setting/appConfig.js --name my-portal-service portal-service:v1
 ```
