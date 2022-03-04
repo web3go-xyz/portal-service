@@ -26,7 +26,7 @@ export class CustomQueryService {
     private idoPriceRepository: Repository<ChainState>,
 
     @Inject(RepositoryConsts.MOONRIVER_CHAIN_STATE_REPOSITORY)
-    private idoMoonriverRepository: Repository<MoonRiverChainState>,
+    private idoMoonriverStakingRepository: Repository<MoonRiverChainState>,
 
 
     @Inject(RepositoryConsts.KUSAMA_PARA_CHAIN_REPOSITORY)
@@ -127,15 +127,16 @@ export class CustomQueryService {
     if (schema == 'ido-kusama-crowdloan') {
       return this.idoKusamaCrowdloanRepository;
     }
-    if (schema == 'ido-price') {
-      return this.idoPriceRepository;
-    }
-    if (schema == 'ido-moonriver') {
-      return this.idoMoonriverRepository;
-    }
-    if (schema == 'ido-polkadot') {
+    if (schema == 'ido-polkadot-crowdloan') {
       return this.idoPolkadotCrowdloanRepository;
     }
+    if (schema == 'ido-karura-cdp') {
+      return this.idoPriceRepository;
+    }
+    if (schema == 'ido-moonriver-staking') {
+      return this.idoMoonriverStakingRepository;
+    }
+   
   }
   buildQueryExpression(request: CustomQueryExecuteRequest): string {
     let filterKeyWord = ['update ', 'delete ', 'alter ', 'drop ', 'create ', 'insert '];
