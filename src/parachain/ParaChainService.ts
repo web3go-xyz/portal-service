@@ -62,13 +62,13 @@ export class ParaChainService {
     Uint8ArrayToHexString(d: Uint8Array) {
         let s = '';
         // console.log(d);
-
-        d.forEach(p => {
+        d.forEach((p) => {
             // console.log(p);
-
             let v = parseInt(p.toString());
-            s += v.toString(16);
-        })
+            let hexV = v.toString(16);
+            if (hexV.length < 2) { hexV = '0' + hexV; }
+            s += hexV;
+        });
 
         return s;
     }
