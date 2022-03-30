@@ -6,4 +6,4 @@ RUN yarn --production --silent
 RUN rm package.json yarn.lock
 COPY ./dist/ .
 EXPOSE 10000
-CMD ["node", "main.js"]
+CMD ["node", "/app/main.js"]
