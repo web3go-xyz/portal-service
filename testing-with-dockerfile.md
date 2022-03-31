@@ -26,28 +26,29 @@ $ docker pull web3go/portal-service:milestone1
  - Find the host ip address by using command `ifconfig` .
    - `ifconfig` => find eth0 => find inet => copy the ip address
  - Paste the host ip address in the appConfig.js at the 2 locations indicated below
+    ```
+    Line 25: AppConfig.mysqlConnection = {
+                type: 'mysql',
+                host: '',  <=========== This needs to be modified
+                port: 3306,
+                username: 'docker',
+                password: '123456',
+                synchronize: false,
+                logging: false,
+            };
+    ```
+    ```
+    Line 54: AppConfig.redisOption = {
+                port: 6379,
+                host: '',  <=========== This needs to be modified
+                password: '123456',
+                db: 0,
+            };
+    ```
  - Save the file and note down the path to it
 
-```
-Line 25: AppConfig.mysqlConnection = {
-            type: 'mysql',
-            host: '',  <=========== This needs to be modified
-            port: 3306,
-            username: 'docker',
-            password: '123456',
-            synchronize: false,
-            logging: false,
-        };
-```
-```
-Line 54: AppConfig.redisOption = {
-            port: 6379,
-            host: '',  <=========== This needs to be modified
-            password: '123456',
-            db: 0,
-        };
-```
-### 5. Run the portal-service image
+
+### 5. Run the portal-service image (Note: please replace `<Path to the appConfig.js>` with your appConfig.js path)
 ```bash
 $ docker run -d -p 10000:10000 -v <Path to the appConfig.js>:/app/common/setting/appConfig.js --name my-portal-service web3go/portal-service:milestone1
 ```
