@@ -21,10 +21,10 @@ $ docker pull web3go/portal-service:milestone1
 
 ### 4. Prepare appConfig.js
  
- - Create a appConfig.js file
+ - Create an empty appConfig.js file
  - Copy the appConfig.js template (at the bottom of the page) and put it in the appConfig you created
  - Find the host ip address by using command `ifconfig` .
-   - `ifconfig` => eth0 => inet => copy the ip address
+   - `ifconfig` => find eth0 => find inet => copy the ip address
  - Paste the host ip address in the appConfig.js at the 2 locations indicated below
  - Save the file and note down the path to it
 
@@ -52,7 +52,7 @@ Line 54: AppConfig.redisOption = {
 $ docker run -d -p 10000:10000 -v <Path to the appConfig.js>:/app/common/setting/appConfig.js --name my-portal-service web3go/portal-service:milestone1
 ```
 
-### 6. Visit http://localhost:10000/api to find the api services
+### 6. Visit http://localhost:10000/api to find the api services we provide
 
 
 
