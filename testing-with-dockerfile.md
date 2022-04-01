@@ -87,8 +87,7 @@ exports.AppConfig = AppConfig;
 _a = AppConfig;
 AppConfig.mysqlConnection = {
     type: 'mysql',
-    // host: '172.17.0.1',
-    host: '172.30.78.184',
+    host: '',
     port: 3306,
     username: 'docker',
     password: '123456',
@@ -117,8 +116,7 @@ AppConfig.typeOrmOption4MoonbeamBalanceDB = Object.assign(Object.assign({}, _a.p
 AppConfig.typeOrmOption4MoonriverBalanceDB = Object.assign(Object.assign({}, _a.postgresConnection), { database: 'dev-moonriver-balance' });
 AppConfig.redisOption = {
     port: 6379,
-    // host: '172.17.0.1',
-    host: '172.30.78.184',
+    host: '',
     password: '123456',
     db: 0,
 };
