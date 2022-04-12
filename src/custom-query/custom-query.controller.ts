@@ -15,6 +15,7 @@ import { CustomQueryService } from './custom-query.service';
 export class CustomQueryController {
   constructor(private readonly service: CustomQueryService) { }
 
+  // API for retriving the list of custom queries
   @Post('/getList')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CustomQuery, isArray: true })
@@ -22,7 +23,7 @@ export class CustomQueryController {
     return this.service.getList();
   }
 
-
+  // API for retriving the details of a custom query by id
   @Post('/getDetail')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CustomQuery, isArray: false })
@@ -30,7 +31,7 @@ export class CustomQueryController {
     return this.service.getDetail(request.id);
   }
 
-
+  // API for removing a custom query by id
   @Post('/remove')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CustomQuery, isArray: false })
@@ -38,7 +39,7 @@ export class CustomQueryController {
     return this.service.remove(request.id);
   }
 
-
+  // API for creating a new custom query
   @Post('/create')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CustomQuery, isArray: false })
@@ -46,7 +47,7 @@ export class CustomQueryController {
     return this.service.create(request as CustomQuery);
   }
 
-
+  // API for updating a custom query by id
   @Post('/update')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CustomQuery, isArray: false })
@@ -54,6 +55,7 @@ export class CustomQueryController {
     return this.service.update(request as CustomQuery);
   }
 
+  // API for executing a custom query by id
   @Post('/executeQuery')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: Object })
@@ -61,7 +63,7 @@ export class CustomQueryController {
     return this.service.executeQuery(request);
   }
 
-
+  // API for retriving the list of tables which supporting custom query
   @Post('/getTables')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: DataTable, isArray: true })

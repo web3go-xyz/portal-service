@@ -6,6 +6,7 @@ import { paraChainAccountConfig } from 'src/parachain/paraChainConfig';
 @Injectable()
 export class ParaChainService {
 
+    // Return the list of all ss58 formats transformed from the given account
     ss58transform(account: string, networks: string[]): any[] {
         MyLogger.log('account:' + account + 'network:' + networks.join(','));
         let keys = [];
@@ -59,6 +60,7 @@ export class ParaChainService {
         return keys;
     }
 
+    // Transform the Uint8Array to Hex format
     Uint8ArrayToHexString(d: Uint8Array) {
         let s = '';
         // console.log(d);

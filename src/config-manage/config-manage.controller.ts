@@ -11,6 +11,7 @@ import { ConfigManageService } from './config-manage.service';
 export class ConfigManageController {
   constructor(private readonly service: ConfigManageService) { }
 
+  // API for retriving wallet label configuration
   @Post('/getWalletLabelConfig')
   @ApiOperation({ summary: 'get wallet label configuration' })
   async getWalletLabelConfig(): Promise<WalletLabelConfig> {
@@ -18,6 +19,7 @@ export class ConfigManageController {
     return config;
   }
 
+  // API for updating wallet label configuration 
   @Post('/updateWalletLabelConfig')
   @ApiOperation({ summary: 'update wallet label configuration' })
   async updateWalletLabelConfig(@Body() body: WalletLabelConfig): Promise<any> {
@@ -25,6 +27,7 @@ export class ConfigManageController {
     return result;
   }
 
+  // API for retriving the list of address tag
   @UseInterceptors(HttpCacheInterceptor)
   @CacheTTL(60)
   @Post('/getAddressTagList')
@@ -32,11 +35,15 @@ export class ConfigManageController {
   getAddressTagList(@Body() request: any): Promise<AddressTagResponse> {
     return this.service.getAddressTagList(request);
   }
+
+  // API for updating address tag by address
   @Post('/updateAddressTag')
   @ApiOperation({ summary: 'update address tag' })
   updateAddressTag(@Body() request: AddressTag): Promise<AddressTag> {
     return this.service.updateAddressTag(request);
   }
+
+  // API for removing address tag by address
   @Post('/removeAddressTag')
   @ApiOperation({ summary: 'remove address tag' })
   removeAddressTag(@Body() request: AddressTag): Promise<boolean> {

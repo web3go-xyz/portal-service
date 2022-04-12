@@ -21,7 +21,7 @@ import { UserAddressBundle } from 'src/common/entity/UserManagementModule/UserAd
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-
+  // API for registering a new user account
   @Post('/signup')
   @ApiOperation({ summary: '[Web2] create new user account' })
   @ApiOkResponse({ type: UserInfo })
@@ -36,6 +36,7 @@ export class UserController {
     return userInfo;
   }
 
+  // API for logging in a user
   @UseGuards(LocalAuthGuard)
   @Post('/signin')
   @ApiOperation({ summary: '[Web2] login in , return user info and access token' })
@@ -52,6 +53,7 @@ export class UserController {
     return validateUser;
   }
 
+  // API for retriving user info by Id
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/getUserInfo')
@@ -66,6 +68,8 @@ export class UserController {
     let userId = validateUser.userId;
     return await this.userService.getUserInfo(userId);
   }
+
+  // API for updating target user info by user Id
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/updateUserInfo')
@@ -74,6 +78,8 @@ export class UserController {
   async updateUserInfo(@Body() request: UserInfoUpdateRequest, @Request() req): Promise<UserInfo> {
     return await this.userService.updateUserInfo(request);
   }
+
+  // API for verifying a user email
   @Post('/verifyEmail')
   @ApiOperation({ summary: '[Web2] verify email if valid, will return userInfo , then the service will send an email contains the code.' })
   @ApiOkResponse({ type: UserInfo })
@@ -81,6 +87,7 @@ export class UserController {
     return await this.userService.verifyEmail(request);
   }
 
+  // API for verifying if user entered correct code
   @Post('/verifyCode')
   @ApiOperation({ summary: '[Web2] verify code if valid' })
   @ApiOkResponse({ type: Boolean })
@@ -88,6 +95,7 @@ export class UserController {
     return await this.userService.verifyCode(request);
   }
 
+  // API for changing a user's password
   @Post('/changePassword')
   @ApiOperation({ summary: '[Web2] change password' })
   @ApiOkResponse({ type: Boolean })
@@ -95,6 +103,7 @@ export class UserController {
     return await this.userService.changePassword(request);
   }
 
+  // API for retriving a list of user's favorite databoards info
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/getUserFavorite')
@@ -105,6 +114,8 @@ export class UserController {
     let userId = validateUser.userId;
     return await this.userService.getUserFavorite(userId);
   }
+
+  // API for adding a databoard to the target user's favorite list
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/addFavorite')
@@ -115,6 +126,8 @@ export class UserController {
     let userId = validateUser.userId;
     return await this.userService.addFavorite(userId, req);
   }
+
+  // API for removing a databoard from the target user's favorite list
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/removeFavorite')
@@ -143,7 +156,7 @@ export class UserController {
   }
 
 
-
+  // API for retriving the list of user-address bundles by user Id
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/getAddressBundle')
@@ -156,6 +169,8 @@ export class UserController {
     let userId = validateUser.userId;
     return await this.userService.getAddressBundle(userId);
   }
+
+  // API for adding a new user-address bundles with userId and address data
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/addAddressBundle')
@@ -169,6 +184,7 @@ export class UserController {
     return await this.userService.addAddressBundle(userId, data);
   }
 
+  // API for removing a user-address bundle from userId bundled address list
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('/removeAddressBundle')

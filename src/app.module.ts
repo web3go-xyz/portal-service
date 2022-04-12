@@ -14,13 +14,21 @@ import { WalletAnalysisModule } from './wallet-analysis/wallet-analysis.module';
 @Module({
   imports: [
     // StatusMonitorModule.forRoot(),
+    //UserModule - module (nestjs module) for web3go registered user info
     UserModule,
+    //WalletAnalysisModule - module for chain and wallet address info
     WalletAnalysisModule,
+    //ConfigManageModule - module for wallet label and address tag
     ConfigManageModule,
+    //CDPAnalysisModule - module for CDP Analysis
     CDPAnalysisModule,
+    //CustomQueryModule - module for custom query service
     CustomQueryModule,
+    //GraphQLResolverModule - module for graphql resolver
     GraphQLResolverModule,
+    //PlatformModule - module for platform info service
     PlatformModule,
+    //GraphQLResolverModule - module for analytics insight page control 
     AnalyticsInsightModule
   ],
   controllers: [AppController],

@@ -16,7 +16,7 @@ export class AnalyticsInsightController {
   constructor(
     private readonly service: AnalyticsInsightService) { }
 
-
+  // API for uploading image as snapshot of dashboard
   @Post('snapshotUpload')
   @ApiOperation({ summary: 'upload img as snapshot of dashoboard' })
   @UseInterceptors(FileInterceptor('file'))
@@ -41,19 +41,23 @@ export class AnalyticsInsightController {
     return path;
   }
 
-
+  // API for publishing a databoard
   @Post('/publishDashboard')
   @ApiOperation({ summary: 'publish databoard' })
   publishDashboard(@Body() request: PublishDataBoardRequest): Promise<PublishDataBoardResponse> {
 
     return this.service.publishDashboard(request);
   }
+
+  // API for removing a databoard
   @Post('/removeDashboard')
   @ApiOperation({ summary: 'publish databoard' })
   removeDashboard(@Body() request: RemoveDataBoardRequest): Promise<RemoveDataBoardResponse> {
 
     return this.service.removeDashboard(request);
   }
+
+  // API for querying the databoard list
   @Post('/queryDataBoardList')
   @ApiOperation({ summary: 'query list of databoard' })
   async queryDataBoardList(@Body() request: QueryDataBoardListRequest): Promise<QueryDataBoardListResponse> {

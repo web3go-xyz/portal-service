@@ -16,6 +16,7 @@ import { DataBoardViewCountResponse } from './viewModel/platform/DataBoardViewCo
 export class AppController {
   constructor(private readonly appService: AppService,
     private readonly paraChainService: ParaChainService,) { }
+  //API for sharing metadata on twitter 
   @Get('/twittershare')
   @ApiOperation({ summary: 'twitter share metadata' })
   twitterShare(@Query('meta') meta: string): string {
@@ -50,7 +51,7 @@ export class AppController {
 
   }
 
-
+  //API for uploading image and returning the path
   @Post('imgUpload')
   @ApiOperation({ summary: 'upload img and return the path' })
   @UseInterceptors(FileInterceptor('file'))
@@ -77,7 +78,7 @@ export class AppController {
     return path;
   }
 
-
+  // API for ss58 format transformation
   @Post('/ss58transform')
   @ApiOperation({ summary: 'transform account as ss58format' })
   ss58transform(@Body() request: SS58transformRequest): any[] {

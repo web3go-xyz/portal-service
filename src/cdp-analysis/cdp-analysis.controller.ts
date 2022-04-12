@@ -16,6 +16,9 @@ import { CDPAnalysisService } from './cdp-analysis.service';
 @Controller('cdp-analysis')
 export class CDPAnalysisController {
   constructor(private readonly service: CDPAnalysisService) { }
+
+  // API for retrieving state info including nendpoint, stability
+  // fee percentage and so on by chain name
   @Post('/getChainState')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: ChainState })
@@ -23,6 +26,8 @@ export class CDPAnalysisController {
     return this.service.getChainState(request.chain, request.symbol);
   }
 
+  // API for retriving chain statistic including debit scale, collateral scale
+  // and so on by chain name
   @Post('/getChainStatistic')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CDChainStatisticResponse })
@@ -30,6 +35,7 @@ export class CDPAnalysisController {
     return this.service.getChainStatistic(request.chain, request.symbol);
   }
 
+  // API for retriving the list of loan postion by accountId and filter status
   @Post('/getLoanPositionList')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CDPLoanPositionResponse })
@@ -39,6 +45,8 @@ export class CDPAnalysisController {
     return this.service.getLoanPositionList(request);
   }
 
+  // API for retriving loan position statistics including invested and withdrawn
+  // value and so on by accoungId and filter status
   @Post('/getLoanPositionStatistic')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CDPLoanPositionStatisticResponse })
@@ -48,7 +56,9 @@ export class CDPAnalysisController {
     return this.service.getLoanPositionStatistic(request);
   }
 
-
+  // API for retriving the list of loan action, including action id,
+  // the corresponding balance changes and so on by accoungId and 
+  // filter status
   @Post('/getLoanActionList')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CDPLoanActionResponse })
@@ -58,6 +68,8 @@ export class CDPAnalysisController {
     return this.service.getLoanActionList(request);
   }
 
+  // API for retriving the loan action K-line statistics by accountId,
+  // start time, end time, and interval
   @Post('/getLoanActionKline')
   @ApiOperation({ summary: '' })
   @ApiOkResponse({ type: CDPLoanActionKlineResponse })
